@@ -9,9 +9,15 @@ const store = useCounterStore();
   <header>
     <div class="wrapper">
       <HelloWorld msg="hello pinia" />
+      <!-- #1 solution -->
       <button @click="store.increment()">{{ store.counter }}</button>
-      <span>{{ store.doubleCount }}</span>
+      <!-- #2 solution -->
+      <button @click="store.counter++">{{ store.counter }}</button>
+      <!-- #3 solution -->
+      <button @click="store.$patch({ counter: store.counter + 1 })">{{ store.counter }}</button>
+      
     </div>
+      <span>{{ store.doubleCount }}</span>
   </header>
 
 
