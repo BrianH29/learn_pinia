@@ -1,11 +1,31 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
+import {useBankAccountStore} from './stores/bankAccount'
+
+const store = useBankAccountStore();
 </script>
 
 <template>
   <header>
     <div class="wrapper">
       <HelloWorld msg="Bank Account Pinia" />
+      <h3>Balance : {{ store.runningBalance }} </h3>
+
+      <button @click="store.charge(5)">Buy coffee for $5</button>
+
+      <h3>Pending : </h3>
+      <ul>
+        <li v-for="item in store.pendingTransactions" :key="item.id">
+          ${{ item.amount }}
+        </li>
+      </ul>
+
+      <h3>Processed : </h3>
+      <ul>
+        <li v-for="item in store.processedTransactions" :key="item.id">
+          ${{ item.amount }}
+        </li>
+      </ul>
     </div>
   </header>
 
