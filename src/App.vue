@@ -18,7 +18,7 @@ const store = useCounterStore();
 
       <button @click="store.$reset()">RESET</button>
     </div>
-      <span>{{ store.doubleCount }}</span>
+      <span>DOUBLE count : {{ store.doubleCount }}</span>
   </header>
 
 
