@@ -12,10 +12,11 @@ const store = useCounterStore();
       <!-- #1 solution -->
       <button @click="store.increment()">{{ store.counter }}</button>
       <!-- #2 solution -->
-      <button @click="store.counter++">{{ store.counter }}</button>
+      <!-- <button @click="store.counter++">{{ store.counter }}</button> -->
       <!-- #3 solution -->
-      <button @click="store.$patch({ counter: store.counter + 1 })">{{ store.counter }}</button>
-      
+      <!-- <button @click="store.$patch({ counter: store.counter + 1 })">{{ store.counter }}</button> -->
+
+      <button @click="store.$reset()">RESET</button>
     </div>
       <span>{{ store.doubleCount }}</span>
   </header>
