@@ -1,17 +1,40 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
 import {useBankAccountStore} from './stores/bankAccount'
+import { ref } from 'vue'
 
 const store = useBankAccountStore();
+
+store.$onAction(({ name, store, after}) => {
+  after( result => {
+    if(result){
+      store.processTransation(result);
+    }
+  })
+})
+
+const payAmount = ref(0);
+const submitPayment = () => {
+  if(payAmount.value){
+    store.pay(payAmount.value);
+    payAmount.value = 0;
+  }
+}
+
 </script>
 
 <template>
   <header>
     <div class="wrapper">
       <HelloWorld msg="Bank Account Pinia" />
+      <button @click="store.reconcile()">reconcile</button>
       <h3>Balance : {{ store.runningBalance }} </h3>
-
       <button @click="store.charge(5)">Buy coffee for $5</button>
+
+      <div>
+        Payment Amount : <input type="number" v-model="payAmount" />
+        <button @click="submitPayment">PAY</button>
+      </div>
 
       <h3>Pending : </h3>
       <ul>

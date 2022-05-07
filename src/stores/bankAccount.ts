@@ -34,7 +34,31 @@ export const useBankAccountStore = defineStore('bankAccount', {
         status : 'pending',
       });
       return id;
-    }
+    },
+    pay(amount:number){
+      const id = Date.now();
+      this.transactions.push({
+        id, 
+        type: 'payment',
+        amount: -amount,
+        status: 'pending',
+      });
+      return id; 
+    },
+    reconcile(){
+      this.balance = this.runningBalance;
+      this.transactions = [];
+    },
+    processTransation(transactionId: number){
+      setTimeout(() => {
+        this.transactions = this.transactions.map((t) => {
+          if(t.id === transactionId) {
+            return {...t, status: 'processed'}
+          }
+          return t;
+        }, 500)
+      })
+  }
   },
 
   getters: {
